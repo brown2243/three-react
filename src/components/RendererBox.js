@@ -11,8 +11,9 @@ const Container = styled.div`
   align-items: center;
 
   & > canvas {
-    width: 300px;
-    height: 150px;
+    width: 100%;
+    height: 100%;
+    display: block;
   }
 `;
 
@@ -62,8 +63,38 @@ function RendererBox() {
 
       return cube;
     }
+
+    // function resizeRendererToDisplaySize(renderer) {
+    //   const canvas = renderer.domElement;
+    //   const width = canvas.clientWidth;
+    //   const height = canvas.clientHeight;
+    //   const needResize = canvas.width !== width || canvas.height !== height;
+    //   if (needResize) {
+    //     renderer.setSize(width, height, false);
+    //   }
+    //   return needResize;
+    // }
+    // HD_DPI 처리 적용
+    function resizeRendererToDisplaySize(renderer) {
+      const canvas = renderer.domElement;
+      const pixelRatio = window.devicePixelRatio;
+      const width = (canvas.clientWidth * pixelRatio) | 0;
+      const height = (canvas.clientHeight * pixelRatio) | 0;
+      const needResize = canvas.width !== width || canvas.height !== height;
+      if (needResize) {
+        renderer.setSize(width, height, false);
+      }
+      return needResize;
+    }
+
     function render(time) {
       time *= 0.001; // convert time to seconds
+
+      if (resizeRendererToDisplaySize(renderer)) {
+        const canvas = renderer.domElement;
+        camera.aspect = canvas.clientWidth / canvas.clientHeight;
+        camera.updateProjectionMatrix();
+      }
 
       cubes.forEach((cube, ndx) => {
         const speed = 1 + ndx * 0.1;
