@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Lenderer from "./components/Lenderer";
+import RendererBox from "./components/RendererBox";
 
 const AppContainer = styled.section`
   width: 100vw;
@@ -9,7 +9,7 @@ const AppContainer = styled.section`
 function App() {
   return (
     <AppContainer>
-      <Lenderer />
+      <RendererBox />
     </AppContainer>
   );
 }
