@@ -34,9 +34,17 @@
 - TubeGeometry -> 패스를 따라 이어진 원
 - EdgesGeometry -> 다른 geometry를 받는 헬퍼 객체로, 각 면 사이의 각이 일정 값 이상일 때만 모서리를 표시합니다.
 
-얼마나 많이 세분할지는 필요에 따라 다르게 설정하면 됩니다.
+### 얼마나 많이 세분할지는 필요에 따라 다르게 설정하면 됩니다.
 
 5000 삼각형인 오른쪽 구체가 480 삼각형인 중간 구체보다 훨씬 좋다고 이야기하기 모호합니다.
 만약 지구본을 만들기 위한 구체 하나를 만든다고 하면, 10000개의 삼각형으로 구체를 만드는 것이 나쁜 선택은 아닙니다. 하지만 1000개의 삼각형으로 만든 구체 1000개를 렌더링할 경우, 이는 총 천만개의 삼각형이 됩니다.
 이를 부드럽게 움직이려면 브라우저가 1초에 60프레임을 렌더링해야 하니, 결과적으로 이는 1초에 6억개의 삼각형을 렌더링하라고 하는 것과 같죠.
 절대 간단한 연산이 아닙니다.
+
+## 참고 사항
+
+```
+import * as THREELOADER from "three/examples/jsm/loaders/FontLoader.js";
+import * as THREETEXT from "three/examples/jsm/geometries/TextGeometry.js";
+"https://threejs.org/examples/fonts/helvetiker_regular.typeface.json" // 폰트 링크
+```
