@@ -191,3 +191,23 @@ Object3D는 Mesh와 마찬가지로 씬 그래프의 한 요소지만, material�
 sunMesh와 earthMesh는 solarSystem의 자식입니다.
 이 3 객체는 각각 회전하죠.
 이제 earthMesh는 sunMesh의 자식이 아니므로 5배 커지지도 않았습니다.
+
+### 씬 그래프의 요소를 시각화하는 것이 도움이 될 때도 있습니다.
+
+이 것을 도와줄 헬퍼 클래스가 있습니다.
+AxesHelper로, 이 클래스는 지역 X, Y, Z 축을 표시해줍니다. 한 번 여태까지 만든 요소에 모두 추가해보죠.
+
+x축(빨강) 그리고 z축(파랑) 축이 보이나요? 카메라가 바로 위에서 아래를 내려다 보고, 각 물체도 y축을 따라 회전하므로 y축(초록)은 보여도 거의 점처럼 보일 겁니다.
+
+또 Three.js와 함께 사용하기로 유명한 lil-gui도 사용할 겁니다. lil-gui는 UI 라이브러리로, 객체와 속성 이름을 넘겨받고, 해당 속성의 타입을 기반으로 속성값을 UI로 조정할 수 있게 해줍니다.
+
+### 씬 그래프 예시
+
+자동차
+
+- Root(scene)
+  - Car body
+    - Left front wheel
+    - right front wheel
+    - Left back wheel
+    - right back wheel

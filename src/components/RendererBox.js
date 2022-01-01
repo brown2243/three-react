@@ -54,6 +54,13 @@ function RendererBox() {
 
     objs.forEach((obj) => scene.add(obj));
 
+    // aniObj.forEach((obj) => {
+    //   const axes = new THREE.AxesHelper();
+    //   axes.material.depthTest = false;
+    //   axes.renderOrder = 1;
+    //   obj.add(axes);
+    // });
+
     renderer.render(scene, camera);
     function resizeRendererToDisplaySize(renderer) {
       const canvas = renderer.domElement;

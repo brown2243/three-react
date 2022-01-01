@@ -1,3 +1,4 @@
+import GUI from "lil-gui";
 import * as THREE from "three";
 
 export const SCENE_GRAPH_OBJ = [];
@@ -47,6 +48,43 @@ export const ANI_OBJ = [];
   solarSystem.add(sunMesh);
   solarSystem.add(earthMesh);
   solarSystem.add(earthOrbit);
+  class AxisGridHelper {
+    constructor(node, units = 10) {
+      const axes = new THREE.AxesHelper();
+      axes.material.depthTest = false;
+      axes.renderOrder = 2; // 격자 다음에 렌더링
+      node.add(axes);
+
+      const grid = new THREE.GridHelper(units, units);
+      grid.material.depthTest = false;
+      grid.renderOrder = 1;
+      node.add(grid);
+
+      this.grid = grid;
+      this.axes = axes;
+      this.visible = false;
+    }
+    get visible() {
+      return this._visible;
+    }
+    set visible(v) {
+      this._visible = v;
+      this.grid.visible = v;
+      this.axes.visible = v;
+    }
+  }
+  const gui = new GUI();
+  function makeAxisGrid(node, label, units) {
+    const helper = new AxisGridHelper(node, units);
+    gui.add(helper, "visible").name(label);
+  }
+
+  makeAxisGrid(solarSystem, "solarSystem", 25);
+  makeAxisGrid(sunMesh, "sunMesh");
+  makeAxisGrid(earthOrbit, "earthOrbit");
+  makeAxisGrid(earthMesh, "earthMesh");
+  makeAxisGrid(moonMesh, "moonMesh");
+
   SCENE_GRAPH_OBJ.push(solarSystem);
   ANI_OBJ.push(solarSystem, sunMesh, earthMesh, earthOrbit, moonMesh);
 }
