@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import * as THREE from "three";
-import { saveData } from "./primitives";
+import { ANI_OBJ, SCENE_GRAPH_OBJ } from "./sceneGraph";
 
 const Container = styled.div`
   width: 100%;
@@ -21,12 +21,10 @@ const Container = styled.div`
 function RendererBox() {
   const canvasRef = useRef(null);
   const [objs, setObjs] = useState([]);
-
+  const [aniObj, setAniObj] = useState([]);
   useEffect(() => {
-    (async function () {
-      const data = await saveData();
-      setObjs(data);
-    })();
+    setObjs(SCENE_GRAPH_OBJ);
+    setAniObj(ANI_OBJ);
   }, []);
 
   useEffect(() => {
@@ -34,20 +32,23 @@ function RendererBox() {
     const renderer = new THREE.WebGLRenderer({ canvas });
 
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0xaaaaaa);
 
-    const fov = 40;
+    // Camera
+    const fov = 75;
     const aspect = 2; // the canvas default
     const near = 0.1;
-    const far = 1500;
+    const far = 1000;
     const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
-    camera.position.z = 200;
 
+    camera.position.set(0, 30, 0);
+    camera.up.set(0, 0, 1);
+    camera.lookAt(0, 0, 0);
+
+    // Light
     {
       const color = 0xffffff;
-      const intensity = 1;
-      const light = new THREE.DirectionalLight(color, intensity);
-      light.position.set(-1, 2, 4);
+      const intensity = 3;
+      const light = new THREE.PointLight(color, intensity);
       scene.add(light);
     }
 
@@ -75,19 +76,14 @@ function RendererBox() {
         camera.updateProjectionMatrix();
       }
 
-      scene.children.forEach((mesh, ndx) => {
-        const speed = 1 + ndx * 0.01;
-        const rot = time * speed;
-        mesh.rotation.x = rot;
-        mesh.rotation.y = rot;
-      });
+      aniObj.forEach((obj) => (obj.rotation.y = time));
 
       renderer.render(scene, camera);
 
       requestAnimationFrame(render);
     }
     requestAnimationFrame(render);
-  }, [objs]);
+  }, [objs, aniObj]);
 
   return (
     <Container>
