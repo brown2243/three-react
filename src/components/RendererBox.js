@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
 import * as THREE from "three";
+import { primitivesBox } from "./primitives";
 
 const Container = styled.div`
   width: 100%;
@@ -24,25 +25,16 @@ function RendererBox() {
     const canvas = canvasRef.current;
     const renderer = new THREE.WebGLRenderer({ canvas });
 
-    const fov = 75;
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0xaaaaaa);
+
+    const fov = 40;
     const aspect = 2; // the canvas default
     const near = 0.1;
-    const far = 5;
+    const far = 1500;
     const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
-    camera.position.z = 2;
+    camera.position.z = 200;
 
-    const scene = new THREE.Scene();
-
-    const boxWidth = 1;
-    const boxHeight = 1;
-    const boxDepth = 1;
-    const geometry = new THREE.BoxGeometry(boxWidth, boxHeight, boxDepth);
-    const material = new THREE.MeshPhongMaterial({ color: 0x44aa88 });
-    const cubes = [
-      makeInstance(geometry, 0x44aa88, 0),
-      makeInstance(geometry, 0x8844aa, -2),
-      makeInstance(geometry, 0xaa8844, 2),
-    ];
     {
       const color = 0xffffff;
       const intensity = 1;
@@ -51,30 +43,38 @@ function RendererBox() {
       scene.add(light);
     }
 
+    const objects = [];
+    const spread = 15;
+    primitivesBox.forEach((geometry, idx) =>
+      addSolidGeometry((idx % 5) - 2, 3 - Math.floor(idx / 5), geometry)
+    );
+
     renderer.render(scene, camera);
 
-    function makeInstance(geometry, color, x) {
-      const material = new THREE.MeshPhongMaterial({ color });
+    function addSolidGeometry(x, y, geometry) {
+      const mesh = new THREE.Mesh(geometry, createMaterial());
+      addObject(x, y, mesh);
+    }
+    function createMaterial() {
+      const material = new THREE.MeshPhongMaterial({
+        side: THREE.DoubleSide,
+      });
 
-      const cube = new THREE.Mesh(geometry, material);
-      scene.add(cube);
+      const hue = Math.random();
+      const saturation = 1;
+      const luminance = 0.5;
+      material.color.setHSL(hue, saturation, luminance);
 
-      cube.position.x = x;
+      return material;
+    }
+    function addObject(x, y, obj) {
+      obj.position.x = x * spread;
+      obj.position.y = y * spread;
 
-      return cube;
+      scene.add(obj);
+      objects.push(obj);
     }
 
-    // function resizeRendererToDisplaySize(renderer) {
-    //   const canvas = renderer.domElement;
-    //   const width = canvas.clientWidth;
-    //   const height = canvas.clientHeight;
-    //   const needResize = canvas.width !== width || canvas.height !== height;
-    //   if (needResize) {
-    //     renderer.setSize(width, height, false);
-    //   }
-    //   return needResize;
-    // }
-    // HD_DPI 처리 적용
     function resizeRendererToDisplaySize(renderer) {
       const canvas = renderer.domElement;
       const pixelRatio = window.devicePixelRatio;
@@ -96,11 +96,11 @@ function RendererBox() {
         camera.updateProjectionMatrix();
       }
 
-      cubes.forEach((cube, ndx) => {
-        const speed = 1 + ndx * 0.1;
+      scene.children.forEach((mesh, ndx) => {
+        const speed = 1 + ndx * 0.01;
         const rot = time * speed;
-        cube.rotation.x = rot;
-        cube.rotation.y = rot;
+        mesh.rotation.x = rot;
+        mesh.rotation.y = rot;
       });
 
       renderer.render(scene, camera);
