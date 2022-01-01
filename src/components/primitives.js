@@ -517,6 +517,25 @@ export async function saveData() {
 
   addObject(-3, 0, parent);
 
+  // red points circle
+  {
+    const radius = 7;
+    const widthSegments = 40;
+    const heightSegments = 20;
+    const geometry = new THREE.SphereGeometry(
+      radius,
+      widthSegments,
+      heightSegments
+    );
+    const material = new THREE.PointsMaterial({
+      color: "blue",
+      size: 1, // 글로벌 단위
+      // sizeAttenuation: false,
+    });
+    const points = new THREE.Points(geometry, material);
+    addObject(-3, -1, points);
+  }
+
   primitivesBox.push(geo);
   primitivesBox.forEach((geometry, idx) =>
     addSolidGeometry((idx % 5) - 2, 3 - Math.floor(idx / 5), geometry)
