@@ -27,6 +27,8 @@
 - SphereGeometry -> 구(Sphere)
 - TetrahedronGeometry -> 사면체
 - TextGeometry -> 3D 폰트와 문자열로 만든 3D 텍스트입니다.
+  - Three.js의 텍스트는 기본적으로 중앙을 중심으로 돌지 않는다는 것입니다.
+  - 기본 회전축은 왼쪽 모서리로, 중앙을 중심으로 돌게 하려면 Three.js에게 geometry의 bounding box(경계 좌표)를 계산해 달라고 요청한 뒤, bounding box의 getCenter 메서드에 해당 mesh의 위치값 객체를 넘겨주어야 합니다.
 - TorusGeometry -> 원환체(torus), 도넛(donut)
 - TorusKnotGeometry -> 원환체 매듭(torus knot)
 - TubeGeometry -> 패스를 따라 이어진 원

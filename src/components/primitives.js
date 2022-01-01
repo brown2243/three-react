@@ -507,6 +507,16 @@ export async function saveData() {
     return geometry;
   }
   const geo = await doit();
+  // primitivesBox.push(geo);
+  const mesh = new THREE.Mesh(geo, createMaterial());
+  geo.computeBoundingBox();
+  geo.boundingBox.getCenter(mesh.position).multiplyScalar(-1);
+
+  const parent = new THREE.Object3D();
+  parent.add(mesh);
+
+  addObject(-3, 0, parent);
+
   primitivesBox.push(geo);
   primitivesBox.forEach((geometry, idx) =>
     addSolidGeometry((idx % 5) - 2, 3 - Math.floor(idx / 5), geometry)
