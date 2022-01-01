@@ -1,7 +1,7 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import * as THREE from "three";
-import { primitivesBox } from "./primitives";
+import { saveData } from "./primitives";
 
 const Container = styled.div`
   width: 100%;
@@ -20,6 +20,14 @@ const Container = styled.div`
 
 function RendererBox() {
   const canvasRef = useRef(null);
+  const [objs, setObjs] = useState([]);
+
+  useEffect(() => {
+    (async function () {
+      const data = await saveData();
+      setObjs(data);
+    })();
+  }, []);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -43,38 +51,9 @@ function RendererBox() {
       scene.add(light);
     }
 
-    const objects = [];
-    const spread = 15;
-    primitivesBox.forEach((geometry, idx) =>
-      addSolidGeometry((idx % 5) - 2, 3 - Math.floor(idx / 5), geometry)
-    );
+    objs.forEach((obj) => scene.add(obj));
 
     renderer.render(scene, camera);
-
-    function addSolidGeometry(x, y, geometry) {
-      const mesh = new THREE.Mesh(geometry, createMaterial());
-      addObject(x, y, mesh);
-    }
-    function createMaterial() {
-      const material = new THREE.MeshPhongMaterial({
-        side: THREE.DoubleSide,
-      });
-
-      const hue = Math.random();
-      const saturation = 1;
-      const luminance = 0.5;
-      material.color.setHSL(hue, saturation, luminance);
-
-      return material;
-    }
-    function addObject(x, y, obj) {
-      obj.position.x = x * spread;
-      obj.position.y = y * spread;
-
-      scene.add(obj);
-      objects.push(obj);
-    }
-
     function resizeRendererToDisplaySize(renderer) {
       const canvas = renderer.domElement;
       const pixelRatio = window.devicePixelRatio;
@@ -108,7 +87,7 @@ function RendererBox() {
       requestAnimationFrame(render);
     }
     requestAnimationFrame(render);
-  }, []);
+  }, [objs]);
 
   return (
     <Container>

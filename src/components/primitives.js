@@ -1,6 +1,8 @@
 import * as THREE from "three";
+import * as THREELOADER from "three/examples/jsm/loaders/FontLoader.js";
+import * as THREETEXT from "three/examples/jsm/geometries/TextGeometry.js";
 
-export const primitivesBox = [];
+const primitivesBox = [];
 {
   const width = 8; // ui: width
   const height = 8; // ui: height
@@ -370,33 +372,7 @@ export const primitivesBox = [];
   const geometry = new THREE.TetrahedronGeometry(radius, detail);
   primitivesBox.push(geometry);
 }
-{
-  //   const loader = new THREE.FontLoader();
-  //   // promisify font loading
-  //   function loadFont(url) {
-  //     return new Promise((resolve, reject) => {
-  //       loader.load(url, resolve, undefined, reject);
-  //     });
-  //   }
-  //   async function doit() {
-  //     const font = await loadFont(
-  //       "https://threejs.org/threejs/resources/threejs/fonts/helvetiker_regular.typeface.json"
-  //     );
-  //     console.log(font);
-  //     const geometry = new THREE.TextGeometry("three.js", {
-  //       font: font,
-  //       size: 3.0,
-  //       height: 0.2,
-  //       curveSegments: 12,
-  //       bevelEnabled: true,
-  //       bevelThickness: 0.15,
-  //       bevelSize: 0.3,
-  //       bevelSegments: 5,
-  //     });
-  //     primitivesBox.push(geometry);
-  //   }
-  //   doit();
-}
+
 {
   const radius = 5; // ui: radius
   const tubeRadius = 2; // ui: tubeRadius
@@ -500,4 +476,61 @@ export const primitivesBox = [];
     )
   );
   primitivesBox.push(geometry);
+}
+
+const objects = [];
+const spread = 15;
+
+export async function saveData() {
+  const loader = new THREELOADER.FontLoader();
+  // promisify font loading
+  function loadFont(url) {
+    return new Promise((resolve, reject) => {
+      loader.load(url, resolve, undefined, reject);
+    });
+  }
+
+  async function doit() {
+    const font = await loadFont(
+      "https://threejs.org/examples/fonts/helvetiker_regular.typeface.json"
+    );
+    const geometry = new THREETEXT.TextGeometry("three.js", {
+      font: font,
+      size: 3.0,
+      height: 0.2,
+      curveSegments: 12,
+      bevelEnabled: true,
+      bevelThickness: 0.15,
+      bevelSize: 0.3,
+      bevelSegments: 5,
+    });
+    return geometry;
+  }
+  const geo = await doit();
+  primitivesBox.push(geo);
+  primitivesBox.forEach((geometry, idx) =>
+    addSolidGeometry((idx % 5) - 2, 3 - Math.floor(idx / 5), geometry)
+  );
+  return objects;
+}
+function addSolidGeometry(x, y, geometry) {
+  const mesh = new THREE.Mesh(geometry, createMaterial());
+  addObject(x, y, mesh);
+}
+function createMaterial() {
+  const material = new THREE.MeshPhongMaterial({
+    side: THREE.DoubleSide,
+  });
+
+  const hue = Math.random();
+  const saturation = 1;
+  const luminance = 0.5;
+  material.color.setHSL(hue, saturation, luminance);
+
+  return material;
+}
+function addObject(x, y, obj) {
+  obj.position.x = x * spread;
+  obj.position.y = y * spread;
+  objects.push(obj);
 }
