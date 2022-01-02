@@ -5,6 +5,10 @@ import Primitives from "./components/Primitives";
 import SceneGraph from "./components/SceneGraph";
 import SceneGraphCar from "./components/SceneGraphCar";
 import SceneGraphTank from "./components/SceneGraphTank";
+import Textures from "./components/Textures";
+import TexturesController from "./components/TexturesController";
+import TexturesDots from "./components/TexturesDots";
+import TexturesSix from "./components/TexturesSix";
 
 const AppContainer = styled.section`
   width: 100vw;
@@ -32,6 +36,10 @@ function App() {
           <Route path="/scenegraph/car" element={<SceneGraphCar />} />
           <Route path="/scenegraph/tank" element={<SceneGraphTank />} />
           {/* <Route path="/materials" element={<Materials />} /> */}
+          <Route path="/textures" element={<Textures />} />
+          <Route path="/textures/six" element={<TexturesSix />} />
+          <Route path="/textures/dots" element={<TexturesDots />} />
+          <Route path="/textures/controller" element={<TexturesController />} />
         </Routes>
       </AppContainer>
     </BrowserRouter>
@@ -48,7 +56,10 @@ function LinkList() {
       <Link to="/scenegraph/car">scenegraph/car</Link>
       <Link to="/scenegraph/tank">scenegraph/tank</Link>
       {/* <Link to="/materials">materials</Link> */}
-      <Link to="/"></Link>
+      <Link to="/textures">textures</Link>
+      <Link to="/textures/six">textures/six</Link>
+      <Link to="/textures/dots">textures/dots</Link>
+      <Link to="/textures/controller">textures/controller</Link>
       <Link to="/"></Link>
     </LinkListContainer>
   );
