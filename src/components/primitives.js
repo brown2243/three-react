@@ -1,6 +1,69 @@
+import React, { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import * as THREELOADER from "three/examples/jsm/loaders/FontLoader.js";
 import * as THREETEXT from "three/examples/jsm/geometries/TextGeometry.js";
+
+import RendererBox from "./RendererBox";
+import { resizeOptimization } from "../utils/snippet";
+
+function Primitives() {
+  const canvasRef = useRef(null);
+  const [objs, setObjs] = useState([]);
+
+  useEffect(() => {
+    (async function () {
+      const data = await saveData();
+      setObjs(data);
+    })();
+  }, []);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const renderer = new THREE.WebGLRenderer({ canvas });
+
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0xaaaaaa);
+
+    const fov = 40;
+    const aspect = 2; // the canvas default
+    const near = 0.1;
+    const far = 1500;
+    const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
+    camera.position.z = 200;
+
+    {
+      const color = 0xffffff;
+      const intensity = 1;
+      const light = new THREE.DirectionalLight(color, intensity);
+      light.position.set(-1, 2, 4);
+      scene.add(light);
+    }
+
+    objs.forEach((obj) => scene.add(obj));
+
+    renderer.render(scene, camera);
+
+    function render(time) {
+      time *= 0.001; // convert time to seconds
+      resizeOptimization(renderer, camera);
+
+      scene.children.forEach((mesh, ndx) => {
+        const speed = 1 + ndx * 0.01;
+        const rot = time * speed;
+        mesh.rotation.x = rot;
+        mesh.rotation.y = rot;
+      });
+
+      renderer.render(scene, camera);
+      requestAnimationFrame(render);
+    }
+    requestAnimationFrame(render);
+  }, [objs]);
+
+  return <RendererBox canvasRef={canvasRef} />;
+}
+
+export default Primitives;
 
 const primitivesBox = [];
 {
@@ -481,7 +544,7 @@ const primitivesBox = [];
 const objects = [];
 const spread = 15;
 
-export async function saveData() {
+async function saveData() {
   const loader = new THREELOADER.FontLoader();
   // promisify font loading
   function loadFont(url) {
