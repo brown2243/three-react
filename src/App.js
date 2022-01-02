@@ -2,6 +2,7 @@ import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
 import styled from "styled-components";
 import Primitives from "./components/Primitives";
 import SceneGraph from "./components/SceneGraph";
+import SceneGraphTank from "./components/SceneGraphTank";
 
 const AppContainer = styled.section`
   width: 100vw;
@@ -26,6 +27,7 @@ function App() {
           <Route path="/" element={<LinkList />} />
           <Route path="/primitives" element={<Primitives />} />
           <Route path="/scenegraph" element={<SceneGraph />} />
+          <Route path="/scenegraph/tank" element={<SceneGraphTank />} />
         </Routes>
       </AppContainer>
     </BrowserRouter>
@@ -39,7 +41,7 @@ function LinkList() {
     <LinkListContainer>
       <Link to="/primitives">primitives</Link>
       <Link to="/scenegraph">scenegraph</Link>
-      <Link to="/"></Link>
+      <Link to="/scenegraph/tank">scenegraph/tank</Link>
       <Link to="/"></Link>
       <Link to="/"></Link>
       <Link to="/"></Link>
