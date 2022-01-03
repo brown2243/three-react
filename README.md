@@ -451,3 +451,12 @@ someTexture.offset.set(xOffset, yOffset);
 someTexture.center.set(.5, .5);
 someTexture.rotation = THREE.MathUtils.degToRad(45);
 ```
+
+## [Lights](https://threejs.org/manual/#ko/Lights)
+
+AmbientLight(자연광)
+물체들이 평평하고, 윤곽이 뚜렷하지 않습니다. AmbientLight는 물체와 조명의 색, 그리고 조명의 밝기를 곱한 것과 같죠.
+`color = materialColor * light.color * light.intensity;`
+AmbientLight에는 방향이라는 개념이 없죠.
+주변광은 완전히 고르게 적용되고 공간 안 물체의 색을 바꾸는 역할만 하기 때문에 실용적이지 않은데다 그다지 조명처럼 느껴지지도 않습니다.
+어두운 장면을 덜 어둡게 만드는 정도에만 도움이 되죠.

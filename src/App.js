@@ -1,5 +1,6 @@
 import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
 import styled from "styled-components";
+import Lights from "./components/Lights";
 // import Materials from "./components/Materials";
 import Primitives from "./components/Primitives";
 import SceneGraph from "./components/SceneGraph";
@@ -40,6 +41,7 @@ function App() {
           <Route path="/textures/six" element={<TexturesSix />} />
           <Route path="/textures/dots" element={<TexturesDots />} />
           <Route path="/textures/controller" element={<TexturesController />} />
+          <Route path="/lights" element={<Lights />} />
         </Routes>
       </AppContainer>
     </BrowserRouter>
@@ -60,7 +62,7 @@ function LinkList() {
       <Link to="/textures/six">textures/six</Link>
       <Link to="/textures/dots">textures/dots</Link>
       <Link to="/textures/controller">textures/controller</Link>
-      <Link to="/"></Link>
+      <Link to="/lights/">Lights</Link>
     </LinkListContainer>
   );
 }
