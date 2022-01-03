@@ -68,9 +68,10 @@ function Lights() {
       scene.add(mesh);
     }
     {
-      const color = 0xffffff;
+      const skyColor = 0xb1e1ff; // 하늘색
+      const groundColor = 0xb97a20; // 오렌지 브라운
       const intensity = 1;
-      const light = new THREE.AmbientLight(color, intensity);
+      const light = new THREE.HemisphereLight(skyColor, groundColor, intensity);
       scene.add(light);
 
       class ColorGUIHelper {
@@ -86,7 +87,12 @@ function Lights() {
         }
       }
       const gui = new GUI();
-      gui.addColor(new ColorGUIHelper(light, "color"), "value").name("color");
+      gui
+        .addColor(new ColorGUIHelper(light, "color"), "value")
+        .name("skyColor");
+      gui
+        .addColor(new ColorGUIHelper(light, "groundColor"), "value")
+        .name("groundColor");
       gui.add(light, "intensity", 0, 2, 0.01);
     }
     function render() {
