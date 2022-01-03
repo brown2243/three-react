@@ -1,17 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import * as THREE from "three";
 import RendererBox from "./RendererBox";
-import styled from "styled-components";
-
-const Info = styled.div`
-  position: absolute;
-  left: 1em;
-  top: 1em;
-  background: rgba(0, 0, 0, 0.8);
-  padding: 0.5em;
-  color: white;
-  font-family: monospace;
-`;
 
 function SceneGraphCar() {
   const canvasRef = useRef(null);
