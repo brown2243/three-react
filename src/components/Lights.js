@@ -68,12 +68,15 @@ function Lights() {
       scene.add(mesh);
     }
     {
-      const skyColor = 0xb1e1ff; // 하늘색
-      const groundColor = 0xb97a20; // 오렌지 브라운
+      const color = 0xffffff;
       const intensity = 1;
-      const light = new THREE.HemisphereLight(skyColor, groundColor, intensity);
+      const light = new THREE.DirectionalLight(color, intensity);
+      light.position.set(0, 10, 0);
+      light.target.position.set(-5, 0, 0);
       scene.add(light);
-
+      scene.add(light.target);
+      const helper = new THREE.DirectionalLightHelper(light);
+      scene.add(helper);
       class ColorGUIHelper {
         constructor(object, prop) {
           this.object = object;
@@ -86,14 +89,25 @@ function Lights() {
           this.object[this.prop].set(hexString);
         }
       }
+      function makeXYZGUI(gui, vector3, name, onChangeFn) {
+        const folder = gui.addFolder(name);
+        folder.add(vector3, "x", -10, 10).onChange(onChangeFn);
+        folder.add(vector3, "y", 0, 10).onChange(onChangeFn);
+        folder.add(vector3, "z", -10, 10).onChange(onChangeFn);
+        folder.open();
+      }
+      function updateLight() {
+        light.target.updateMatrixWorld();
+        helper.update();
+      }
+      updateLight();
+
       const gui = new GUI();
-      gui
-        .addColor(new ColorGUIHelper(light, "color"), "value")
-        .name("skyColor");
-      gui
-        .addColor(new ColorGUIHelper(light, "groundColor"), "value")
-        .name("groundColor");
+      gui.addColor(new ColorGUIHelper(light, "color"), "value").name("color");
       gui.add(light, "intensity", 0, 2, 0.01);
+
+      makeXYZGUI(gui, light.position, "position", updateLight);
+      makeXYZGUI(gui, light.target.position, "target", updateLight);
     }
     function render() {
       resizeOptimization(renderer, camera);

@@ -468,3 +468,9 @@ HemisphereLight는 천장과 바닥의 색을 인자로 받아, 물체의 천장
 이 또한 그다지 입체적이지 않습니다. 아까보다는 낮지만 전체적으로 2D처럼 보이네요.
 HemisphereLight는 주로 풍경을 표현하거나 할 때 다른 조명과 함께 사용합니다.
 다른 조명과 조합할 때 유용하고, 간단히는 AmbientLight 대신 사용할 수 있죠.
+
+### DirectionalLight(직사광)
+
+DirectionalLight는 주로 태양을 표현할 때 사용합니다.
+먼저 light와 light.target(목표)을 모두 장면에 추가해야 합니다.
+그래야 Three.js의 DirectionalLight가 목표가 있는 방향으로 빛을 쬘 테니까요.
