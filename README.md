@@ -474,3 +474,21 @@ HemisphereLight는 주로 풍경을 표현하거나 할 때 다른 조명과 함
 DirectionalLight는 주로 태양을 표현할 때 사용합니다.
 먼저 light와 light.target(목표)을 모두 장면에 추가해야 합니다.
 그래야 Three.js의 DirectionalLight가 목표가 있는 방향으로 빛을 쬘 테니까요.
+
+### PointLight(레이저?)
+
+PointLight는 한 점에서 무한히 뻗어나가는 광원입니다.
+
+PointLightHelper는 점의 표상을 그립니다. 점의 표상이란 점으로는 확인이 어려우니, 기본값으로 다이아몬드 형태의 와이어프레임(wireframe)을 대신 그려놓은 것이죠. 점의 형태는 조명에 mesh 객체를 하나 넘겨 얼마든지 바꿀 수 있습니다.
+
+PointLight에는 추가로 distance 속성이 있습니다. distance가이 0이면 PointLight의 밝기가 무한대임을 의미하고, 0보다 크면 distance에 지정된 거리만큼만 영향을 미칩니다.
+
+### SpotLight
+
+스포트라이트는 비유하자면 원뿔 안의 PointLight입니다. **차이점은 원뿔 안에서만 빛난다는 점이죠.**
+
+SpotLight의 원뿔은 종류는 외부 원뿔과 내부 원뿔 두 가지입니다. 빛의 밝기는 내부 원뿔에서 가장 세고, 외부 원뿔에 가까워질수록 0까지 낮아집니다.
+
+DirectionalLight와 마찬가지로 SpotLight도 목표의 위치를 정해줘야 합니다. 원뿔의 밑면이 해당 목표물을 바라보게 되죠.
+
+원뿔의 내각은 angle에 호도(radians)값을 지정해 설정합니다. 텍스처 예제에서 사용했던 DegRadHelper 객체를 사용해 UI에는 도(degrees)로 표시하도록 하겠습니다.

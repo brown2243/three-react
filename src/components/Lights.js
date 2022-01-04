@@ -70,12 +70,12 @@ function Lights() {
     {
       const color = 0xffffff;
       const intensity = 1;
-      const light = new THREE.DirectionalLight(color, intensity);
+
+      const light = new THREE.SpotLight(color, intensity);
       light.position.set(0, 10, 0);
-      light.target.position.set(-5, 0, 0);
       scene.add(light);
-      scene.add(light.target);
-      const helper = new THREE.DirectionalLightHelper(light);
+
+      const helper = new THREE.SpotLightHelper(light);
       scene.add(helper);
       class ColorGUIHelper {
         constructor(object, prop) {
@@ -89,6 +89,19 @@ function Lights() {
           this.object[this.prop].set(hexString);
         }
       }
+      class DegRadHelper {
+        constructor(obj, prop) {
+          this.obj = obj;
+          this.prop = prop;
+        }
+        get value() {
+          return THREE.MathUtils.radToDeg(this.obj[this.prop]);
+        }
+        set value(v) {
+          this.obj[this.prop] = THREE.MathUtils.degToRad(v);
+        }
+      }
+
       function makeXYZGUI(gui, vector3, name, onChangeFn) {
         const folder = gui.addFolder(name);
         folder.add(vector3, "x", -10, 10).onChange(onChangeFn);
@@ -96,15 +109,20 @@ function Lights() {
         folder.add(vector3, "z", -10, 10).onChange(onChangeFn);
         folder.open();
       }
+
       function updateLight() {
-        light.target.updateMatrixWorld();
         helper.update();
       }
-      updateLight();
 
       const gui = new GUI();
       gui.addColor(new ColorGUIHelper(light, "color"), "value").name("color");
       gui.add(light, "intensity", 0, 2, 0.01);
+      gui.add(light, "distance", 0, 40).onChange(updateLight);
+      gui
+        .add(new DegRadHelper(light, "angle"), "value", 0, 90)
+        .name("angle")
+        .onChange(updateLight);
+      gui.add(light, "penumbra", 0, 1, 0.01);
 
       makeXYZGUI(gui, light.position, "position", updateLight);
       makeXYZGUI(gui, light.target.position, "target", updateLight);
