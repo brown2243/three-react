@@ -13,6 +13,7 @@ function Lights() {
   useEffect(() => {
     const canvas = canvasRef.current;
     const renderer = new THREE.WebGLRenderer({ canvas });
+    renderer.physicallyCorrectLights = true;
 
     const scene = new THREE.Scene();
 
@@ -69,17 +70,18 @@ function Lights() {
       mesh.position.set(-sphereRadius - 1, sphereRadius + 2, 0);
       scene.add(mesh);
     }
+
     {
       const color = 0xffffff;
-      const intensity = 5;
-      const width = 12;
-      const height = 4;
-      const light = new THREE.RectAreaLight(color, intensity, width, height);
+      const intensity = 1;
+      const light = new THREE.PointLight(color, intensity);
+      light.power = 800;
+      light.decay = 2;
+      light.distance = Infinity;
       light.position.set(0, 10, 0);
-      light.rotation.x = THREE.MathUtils.degToRad(-90);
       scene.add(light);
 
-      const helper = new RectAreaLightHelper(light);
+      const helper = new THREE.PointLightHelper(light);
       light.add(helper);
       class ColorGUIHelper {
         constructor(object, prop) {
@@ -93,18 +95,6 @@ function Lights() {
           this.object[this.prop].set(hexString);
         }
       }
-      class DegRadHelper {
-        constructor(obj, prop) {
-          this.obj = obj;
-          this.prop = prop;
-        }
-        get value() {
-          return THREE.MathUtils.radToDeg(this.obj[this.prop]);
-        }
-        set value(v) {
-          this.obj[this.prop] = THREE.MathUtils.degToRad(v);
-        }
-      }
 
       function makeXYZGUI(gui, vector3, name, onChangeFn) {
         const folder = gui.addFolder(name);
@@ -114,25 +104,10 @@ function Lights() {
         folder.open();
       }
 
-      function updateLight() {
-        helper.update();
-      }
-
       const gui = new GUI();
       gui.addColor(new ColorGUIHelper(light, "color"), "value").name("color");
-      gui.add(light, "intensity", 0, 10, 0.01);
-      gui.add(light, "width", 0, 20);
-      gui.add(light, "height", 0, 20);
-      gui
-        .add(new DegRadHelper(light.rotation, "x"), "value", -180, 180)
-        .name("x rotation");
-      gui
-        .add(new DegRadHelper(light.rotation, "y"), "value", -180, 180)
-        .name("y rotation");
-      gui
-        .add(new DegRadHelper(light.rotation, "z"), "value", -180, 180)
-        .name("z rotation");
-
+      gui.add(light, "decay", 0, 4, 0.01);
+      gui.add(light, "power", 0, 2000);
       makeXYZGUI(gui, light.position, "position");
     }
 

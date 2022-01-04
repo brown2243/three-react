@@ -509,12 +509,15 @@ import { RectAreaLightHelper } from '/examples/jsm/helpers/RectAreaLightHelper.j
 ```
 
 **RectAreaLight는 DirectionalLight, SpotLight와 달리 목표를 사용하지 않습니다.**
-빛의 방향은 rotation으로 설정할 수 있죠. **또 RectAreaLightHelper는 직접 조명을 자식으로 두는 다른 헬퍼 객체와 달리, 해당 조명의 자식이어야 합니다.**
+빛의 방향은 rotation으로 설정할 수 있죠.
+**또 RectAreaLightHelper는 직접 조명을 자식으로 두는 다른 헬퍼 객체와 달리, 해당 조명의 자식이어야 합니다.**
 
 조명의 rotation, width, height 속성을 조정할 수 있도록 GUI도 수정해줍니다.
 
+```
 위 예제에는 WebGLRenderer의 physicallyCorrectLights(물리 기반 조명) 설정이 있습니다. 이는 거리에 따라 빛이 어떻게 떨어질지 결정하는 속성으로, PointLight와 SpotLight가 이 설정의 영향을 받습니다. RectAreaLight는 마찬가지로 설정의 영향도 받고, 기본적으로 이 설정을 사용하죠.
+```
 
 이 설정을 사용하면 기본적으로 조명의 distance나 intensity 대신 power 속성을 루멘(lumens) 단위로 설정해야 합니다. 그러면 Three.js는 물리적 계산을 통해 실제 광원을 흉내내죠. 예제의 거리 단위는 미터(meters)이니, 60w짜리 전구는 약 800루멘 정도일 겁니다. 그리고 조명의 부서짐(decay) 정도를 설정하는 decay 속성도 있습니다. 현실적인 조명을 위해서는 2 정도가 적당하죠.
 
-한 번 예제를 만들어 테스트해봅시다.
+**조명은 renderer가 장면을 렌더링하는 속도에 영향을 미칩니다. 그러니 가능한 적은 조명을 쓰는 게 좋죠.**
