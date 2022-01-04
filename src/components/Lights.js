@@ -2,8 +2,6 @@ import React, { useEffect, useRef } from "react";
 import RendererBox from "./RendererBox";
 import * as THREE from "three";
 import GUI from "lil-gui";
-import { RectAreaLightUniformsLib } from "three/examples/jsm/lights/RectAreaLightUniformsLib.js";
-import { RectAreaLightHelper } from "three/examples/jsm/helpers/RectAreaLightHelper.js";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { resizeOptimization } from "../utils/snippet";
 
@@ -70,7 +68,7 @@ function Lights() {
       mesh.position.set(-sphereRadius - 1, sphereRadius + 2, 0);
       scene.add(mesh);
     }
-
+    const gui = new GUI();
     {
       const color = 0xffffff;
       const intensity = 1;
@@ -104,7 +102,6 @@ function Lights() {
         folder.open();
       }
 
-      const gui = new GUI();
       gui.addColor(new ColorGUIHelper(light, "color"), "value").name("color");
       gui.add(light, "decay", 0, 4, 0.01);
       gui.add(light, "power", 0, 2000);
@@ -117,6 +114,10 @@ function Lights() {
       requestAnimationFrame(render);
     }
     requestAnimationFrame(render);
+    function destroyGui() {
+      gui.destroy();
+    }
+    return destroyGui;
   }, []);
 
   return <RendererBox canvasRef={canvasRef} />;

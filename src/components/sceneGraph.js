@@ -87,9 +87,6 @@ function SceneGraph() {
       const helper = new AxisGridHelper(node, units);
       gui.add(helper, "visible").name(label);
     }
-    function destroy() {
-      gui.destroy();
-    }
 
     makeAxisGrid(solarSystem, "solarSystem", 25);
     makeAxisGrid(sunMesh, "sunMesh");
@@ -102,7 +99,10 @@ function SceneGraph() {
 
     setObjs(SCENE_GRAPH_OBJ);
     setAniObj(ANI_OBJ);
-    return destroy;
+    function destroyGui() {
+      gui.destroy();
+    }
+    return destroyGui;
   }, []);
 
   useEffect(() => {

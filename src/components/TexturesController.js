@@ -68,7 +68,6 @@ function TexturesController() {
     function updateTexture() {
       texture.needsUpdate = true;
     }
-
     const gui = new GUI();
     gui
       .add(new StringToNumberHelper(texture, "wrapS"), "value", wrapModes)
@@ -108,6 +107,10 @@ function TexturesController() {
     }
 
     requestAnimationFrame(render);
+    function destroyGui() {
+      gui.destroy();
+    }
+    return destroyGui;
   }, []);
 
   return <RendererBox canvasRef={canvasRef} />;
