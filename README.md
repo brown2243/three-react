@@ -492,3 +492,29 @@ SpotLight의 원뿔은 종류는 외부 원뿔과 내부 원뿔 두 가지입니
 DirectionalLight와 마찬가지로 SpotLight도 목표의 위치를 정해줘야 합니다. 원뿔의 밑면이 해당 목표물을 바라보게 되죠.
 
 원뿔의 내각은 angle에 호도(radians)값을 지정해 설정합니다. 텍스처 예제에서 사용했던 DegRadHelper 객체를 사용해 UI에는 도(degrees)로 표시하도록 하겠습니다.
+
+### RectAreaLight
+
+이름 그대로 사각 형태의 조명으로, 형광등이나 천장의 유리를 통과하는 태양빛을 표현하기에 적합합니다.
+
+`RectAreaLight`는 `MeshStandardMaterial`과 `MeshPhysicalMaterial`만 지원합니다.
+예전 코드에서 재질(material)을 `MeshStandardMaterial`로 바꾸겠습니다.
+
+RectAreaLight를 사용하려면 별도의 데이터를 불러와야 합니다.
+또한 RectAreaLightHelper도 같이 불러와 조명을 시각화하겠습니다.
+
+```
+import { RectAreaLightUniformsLib } from '/examples/jsm/lights/RectAreaLightUniformsLib.js';
+import { RectAreaLightHelper } from '/examples/jsm/helpers/RectAreaLightHelper.js';
+```
+
+**RectAreaLight는 DirectionalLight, SpotLight와 달리 목표를 사용하지 않습니다.**
+빛의 방향은 rotation으로 설정할 수 있죠. **또 RectAreaLightHelper는 직접 조명을 자식으로 두는 다른 헬퍼 객체와 달리, 해당 조명의 자식이어야 합니다.**
+
+조명의 rotation, width, height 속성을 조정할 수 있도록 GUI도 수정해줍니다.
+
+위 예제에는 WebGLRenderer의 physicallyCorrectLights(물리 기반 조명) 설정이 있습니다. 이는 거리에 따라 빛이 어떻게 떨어질지 결정하는 속성으로, PointLight와 SpotLight가 이 설정의 영향을 받습니다. RectAreaLight는 마찬가지로 설정의 영향도 받고, 기본적으로 이 설정을 사용하죠.
+
+이 설정을 사용하면 기본적으로 조명의 distance나 intensity 대신 power 속성을 루멘(lumens) 단위로 설정해야 합니다. 그러면 Three.js는 물리적 계산을 통해 실제 광원을 흉내내죠. 예제의 거리 단위는 미터(meters)이니, 60w짜리 전구는 약 800루멘 정도일 겁니다. 그리고 조명의 부서짐(decay) 정도를 설정하는 decay 속성도 있습니다. 현실적인 조명을 위해서는 2 정도가 적당하죠.
+
+한 번 예제를 만들어 테스트해봅시다.
