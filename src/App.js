@@ -1,5 +1,7 @@
 import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
 import styled from "styled-components";
+import Camera from "./components/Camera";
+import CameraZfighting from "./components/CameraZfighting";
 import Lights from "./components/Lights";
 // import Materials from "./components/Materials";
 import Primitives from "./components/Primitives";
@@ -42,6 +44,8 @@ function App() {
           <Route path="/textures/dots" element={<TexturesDots />} />
           <Route path="/textures/controller" element={<TexturesController />} />
           <Route path="/lights" element={<Lights />} />
+          <Route path="/camera" element={<Camera />} />
+          <Route path="/camera/z" element={<CameraZfighting />} />
         </Routes>
       </AppContainer>
     </BrowserRouter>
@@ -62,7 +66,9 @@ function LinkList() {
       <Link to="/textures/six">textures/six</Link>
       <Link to="/textures/dots">textures/dots</Link>
       <Link to="/textures/controller">textures/controller</Link>
-      <Link to="/lights/">Lights</Link>
+      <Link to="/lights">Lights</Link>
+      <Link to="/camera">camera</Link>
+      <Link to="/camera/z">camera/Zfighting</Link>
     </LinkListContainer>
   );
 }

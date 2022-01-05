@@ -1,4 +1,4 @@
-function resizeRendererToDisplaySize(renderer) {
+export function resizeRendererToDisplaySize(renderer) {
   const canvas = renderer.domElement;
   const pixelRatio = window.devicePixelRatio;
   const width = (canvas.clientWidth * pixelRatio) | 0;
