@@ -14,6 +14,7 @@ import Textures from "./components/Textures";
 import TexturesController from "./components/TexturesController";
 import TexturesDots from "./components/TexturesDots";
 import TexturesSix from "./components/TexturesSix";
+import Shadow from "./components/Shadow";
 
 const AppContainer = styled.section`
   width: 100vw;
@@ -53,6 +54,7 @@ function App() {
             path="/camera/orthographic/2"
             element={<CameraOrthographic2 />}
           />
+          <Route path="/shadow" element={<Shadow />} />
         </Routes>
       </AppContainer>
     </BrowserRouter>
@@ -78,6 +80,7 @@ function LinkList() {
       <Link to="/camera/z">camera/Zfighting</Link>
       <Link to="/camera/orthographic">camera/orthographic</Link>
       <Link to="/camera/orthographic/2">camera/orthographic2/2</Link>
+      <Link to="/shadow">shadow</Link>
     </LinkListContainer>
   );
 }

@@ -562,6 +562,4 @@ const renderer = new THREE.WebGLRenderer({
 
 2분할 화면 예제를 수정해 첫 번째 화면을 OrthographicCamera로 바꾸겠습니다.
 
-# 1/6
-
-## PS
+## [shadows](https://threejs.org/manual/#ko/shadows)
