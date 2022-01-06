@@ -19,7 +19,7 @@ const SplitView = styled.div`
   }
 `;
 
-function Camera() {
+function CameraPerspective() {
   const canvasRef = useRef(null);
   const cameraOne = useRef(null);
   const cameraTwo = useRef(null);
@@ -229,4 +229,4 @@ function Camera() {
   );
 }
 
-export default Camera;
+export default CameraPerspective;

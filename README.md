@@ -524,7 +524,8 @@ import { RectAreaLightHelper } from '/examples/jsm/helpers/RectAreaLightHelper.j
 
 ## [cameras](https://threejs.org/manual/#ko/cameras)
 
-Three.js에서 가장 자주 사용하는 카메라는 여태까지 썼던 PerspectiveCamera(원근 카메라)입니다.
+### Three.js에서 가장 자주 사용하는 카메라는 여태까지 썼던 PerspectiveCamera(원근 카메라)입니다.
+
 이 카메라는 멀리 있는 물체를 가까이 있는 것보다 상대적으로 작게 보이도록 해주죠.
 PerspectiveCamera는 절두체(frustum)를 만듭니다.
 PerspectiveCamera는 4가지 속성을 바탕으로 절두체를 만듭니다.
@@ -546,14 +547,21 @@ const renderer = new THREE.WebGLRenderer({
     });
 ```
 
-다. 이 해결책이 먹히지 않은 이유는 일부 GPU만 이 기능을 지원하기 때문이죠. 2018년 9월 기준으로 거의 모든 데스크탑 GPU가 이 기능을 지원하나, 모바일 기기는 대부분 이 기능을 지원하지 않습니다.
+이 기능을 쓰지 말아야 하는 이유는
 
-이 기능을 쓰지 말아야 하는 또 다른 이유는, 이 기능이 일반적인 해결책보다 훨씬 성능이 나쁘기 때문입니다.
+1. 이 기능이 일반적인 해결책보다 훨씬 성능이 나쁘기 때문입니다.
+2. 거의 모든 데스크탑 GPU가 이 기능을 지원하나, 모바일 기기는 대부분 이 기능을 지원하지 않습니다.
 
 게다가 이 기능을 활성화해도, near를 더 작게, far를 더 멀게 설정하다보면 결국 같은 현상을 만나게 될 겁니다.
 
 이는 항상 near와 far를 설정하는데 많은 공을 들여야 한다는 의미입니다. near는 대상이 보이는 한 가장 멀게, far도 대상이 보이는 한 카메라와 가장 가깝게 설정하는 것이 좋죠. 만약 거대한 공간을 렌더링하는 경우, 예를 들어 사람의 속눈썹과 50km 떨어진 산을 동시에 보이게 하려면 다른 해결책-나중에 다룰지도 모르는-을 찾아야 합니다. 당장은 near와 far를 적절하게 설정하는 게 중요하다는 것만 알아둡시다.
 
-두 번째로 자주 사용하는 카메라는 OrthographicCamera(정사영 카메라)입니다. 절두체 대신 left, right, top, bottom, near, far로 육면체를 정의해 사용하죠. 육면체로 화면을 투사하기에 원근 효과가 없습니다.
+### 두 번째로 자주 사용하는 카메라는 OrthographicCamera(정사영 카메라)입니다.
+
+절두체 대신 left, right, top, bottom, near, far로 육면체를 정의해 사용하죠. 육면체로 화면을 투사하기에 원근 효과가 없습니다.
 
 2분할 화면 예제를 수정해 첫 번째 화면을 OrthographicCamera로 바꾸겠습니다.
+
+# 1/6
+
+## PS

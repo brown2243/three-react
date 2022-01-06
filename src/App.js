@@ -1,6 +1,8 @@
 import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
 import styled from "styled-components";
-import Camera from "./components/Camera";
+import CameraPerspective from "./components/CameraPerspective";
+import CameraOrthographic from "./components/CameraOrthographic";
+import CameraOrthographic2 from "./components/CameraOrthographic2";
 import CameraZfighting from "./components/CameraZfighting";
 import Lights from "./components/Lights";
 // import Materials from "./components/Materials";
@@ -44,8 +46,13 @@ function App() {
           <Route path="/textures/dots" element={<TexturesDots />} />
           <Route path="/textures/controller" element={<TexturesController />} />
           <Route path="/lights" element={<Lights />} />
-          <Route path="/camera" element={<Camera />} />
+          <Route path="/camera/perspective" element={<CameraPerspective />} />
           <Route path="/camera/z" element={<CameraZfighting />} />
+          <Route path="/camera/orthographic" element={<CameraOrthographic />} />
+          <Route
+            path="/camera/orthographic/2"
+            element={<CameraOrthographic2 />}
+          />
         </Routes>
       </AppContainer>
     </BrowserRouter>
@@ -67,8 +74,10 @@ function LinkList() {
       <Link to="/textures/dots">textures/dots</Link>
       <Link to="/textures/controller">textures/controller</Link>
       <Link to="/lights">Lights</Link>
-      <Link to="/camera">camera</Link>
+      <Link to="/camera/perspective">camera/perspective</Link>
       <Link to="/camera/z">camera/Zfighting</Link>
+      <Link to="/camera/orthographic">camera/orthographic</Link>
+      <Link to="/camera/orthographic/2">camera/orthographic2/2</Link>
     </LinkListContainer>
   );
 }
