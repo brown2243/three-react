@@ -108,7 +108,10 @@ function ShadowCamera() {
       folder.add(vector3, "z", -10, 10).onChange(onChangeFn);
       // folder.open();
     }
-
+    const gui = new GUI();
+    function destroyGui() {
+      gui.destroy();
+    }
     {
       const color = 0xffffff;
       const intensity = 1;
@@ -148,7 +151,6 @@ function ShadowCamera() {
         }
       }
 
-      const gui = new GUI();
       gui.addColor(new ColorGUIHelper(light, "color"), "value").name("color");
       gui.add(light, "intensity", 0, 2, 0.01);
       gui.add(light, "distance", 0, 40).onChange(updateCamera);
@@ -180,8 +182,9 @@ function ShadowCamera() {
       renderer.render(scene, camera);
       requestAnimationFrame(render);
     }
-
     requestAnimationFrame(render);
+
+    return destroyGui;
   }, []);
 
   return <RendererBox canvasRef={canvasRef} />;
