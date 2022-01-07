@@ -17,6 +17,7 @@ import TexturesSix from "./components/TexturesSix";
 import Shadow from "./components/Shadow";
 import ShadowCamera from "./components/ShadowCamera";
 import Fog from "./components/Fog";
+import Rendertargets from "./components/Rendertargets";
 
 const AppContainer = styled.section`
   width: 100vw;
@@ -59,6 +60,7 @@ function App() {
           <Route path="/shadow" element={<Shadow />} />
           <Route path="/shadow/camera" element={<ShadowCamera />} />
           <Route path="/fog" element={<Fog />} />
+          <Route path="/Rendertargets" element={<Rendertargets />} />
         </Routes>
       </AppContainer>
     </BrowserRouter>
@@ -87,6 +89,7 @@ function LinkList() {
       <Link to="/shadow">shadow</Link>
       <Link to="/shadow/camera">shadow/camera</Link>
       <Link to="/fog">fog</Link>
+      <Link to="/Rendertargets">Rendertargets</Link>
     </LinkListContainer>
   );
 }
