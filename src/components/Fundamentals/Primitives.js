@@ -3,7 +3,7 @@ import * as THREE from "three";
 import * as THREELOADER from "three/examples/jsm/loaders/FontLoader.js";
 import * as THREETEXT from "three/examples/jsm/geometries/TextGeometry.js";
 
-import RendererBox from "../RendererBox";
+import RendererBox from "components/RendererBox";
 import { resizeOptimization } from "utils/snippet";
 
 function Primitives() {

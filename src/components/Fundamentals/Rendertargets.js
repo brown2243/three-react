@@ -1,9 +1,7 @@
 import React, { useEffect, useRef } from "react";
-import RendererBox from "../RendererBox";
+import RendererBox from "components/RendererBox";
 import * as THREE from "three";
 import { resizeOptimization } from "utils/snippet";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
-import GUI from "lil-gui";
 
 function Rendertargets() {
   const canvasRef = useRef(null);

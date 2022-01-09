@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import * as THREE from "three";
-import RendererBox from "../RendererBox";
+import RendererBox from "components/RendererBox";
 import styled from "styled-components";
 
 const Info = styled.div`

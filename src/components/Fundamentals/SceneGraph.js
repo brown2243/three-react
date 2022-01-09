@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import GUI from "lil-gui";
 import * as THREE from "three";
-import RendererBox from "../RendererBox";
+import RendererBox from "components/RendererBox";
 import { resizeOptimization } from "utils/snippet";
 
 function SceneGraph() {

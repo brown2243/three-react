@@ -18,6 +18,9 @@ import Shadow from "components/Fundamentals/Shadow";
 import ShadowCamera from "components/Fundamentals/ShadowCamera";
 import Fog from "components/Fundamentals/Fog";
 import Rendertargets from "components/Fundamentals/Rendertargets";
+import BufferGeometry from "components/Fundamentals/BufferGeometry";
+//
+import ParticialPoints from "components/Tips/ParticialPoints";
 
 const AppContainer = styled.section`
   width: 100vw;
@@ -66,6 +69,15 @@ function App() {
           <Route path="/shadow/camera" element={<ShadowCamera />} />
           <Route path="/fog" element={<Fog />} />
           <Route path="/Rendertargets" element={<Rendertargets />} />
+          <Route path="/BufferGeometry" element={<BufferGeometry />} />
+          {/*  */}
+
+          {/*  */}
+
+          <Route
+            path="/examples/ParticialPoints"
+            element={<ParticialPoints />}
+          />
         </Routes>
       </AppContainer>
     </BrowserRouter>
@@ -97,51 +109,15 @@ function LinkList() {
         <Link to="/shadow/camera">shadow/camera</Link>
         <Link to="/fog">fog</Link>
         <Link to="/Rendertargets">Rendertargets</Link>
-        <Link to="/Rendertargets">Rendertargets</Link>
+        <Link to="/BufferGeometry">BufferGeometry</Link>
       </LinkListContainer>
       <LinkListContainer>
         <h1>Tips</h1>
-        <Link to="/primitives">primitives</Link>
-        <Link to="/scenegraph">scenegraph</Link>
-        <Link to="/scenegraph/car">scenegraph/car</Link>
-        <Link to="/scenegraph/tank">scenegraph/tank</Link>
-        {/* <Link to="/materials">materials</Link> */}
-        <Link to="/textures">textures</Link>
-        <Link to="/textures/six">textures/six</Link>
-        <Link to="/textures/dots">textures/dots</Link>
-        <Link to="/textures/controller">textures/controller</Link>
-        <Link to="/lights">Lights</Link>
-        <Link to="/camera/perspective">camera/perspective</Link>
-        <Link to="/camera/z">camera/Zfighting</Link>
-        <Link to="/camera/orthographic">camera/orthographic</Link>
-        <Link to="/camera/orthographic/2">camera/orthographic2/2</Link>
-        <Link to="/shadow">shadow</Link>
-        <Link to="/shadow/camera">shadow/camera</Link>
-        <Link to="/fog">fog</Link>
-        <Link to="/Rendertargets">Rendertargets</Link>
-        <Link to="/Rendertargets">Rendertargets</Link>
+        {/* <Link to="/primitives">primitives</Link> */}
       </LinkListContainer>
       <LinkListContainer>
         <h1>Examples</h1>
-        <Link to="/primitives">primitives</Link>
-        <Link to="/scenegraph">scenegraph</Link>
-        <Link to="/scenegraph/car">scenegraph/car</Link>
-        <Link to="/scenegraph/tank">scenegraph/tank</Link>
-        {/* <Link to="/materials">materials</Link> */}
-        <Link to="/textures">textures</Link>
-        <Link to="/textures/six">textures/six</Link>
-        <Link to="/textures/dots">textures/dots</Link>
-        <Link to="/textures/controller">textures/controller</Link>
-        <Link to="/lights">Lights</Link>
-        <Link to="/camera/perspective">camera/perspective</Link>
-        <Link to="/camera/z">camera/Zfighting</Link>
-        <Link to="/camera/orthographic">camera/orthographic</Link>
-        <Link to="/camera/orthographic/2">camera/orthographic2/2</Link>
-        <Link to="/shadow">shadow</Link>
-        <Link to="/shadow/camera">shadow/camera</Link>
-        <Link to="/fog">fog</Link>
-        <Link to="/Rendertargets">Rendertargets</Link>
-        <Link to="/Rendertargets">Rendertargets</Link>
+        {/* <Link to="/examples/ParticialPoints">ParticialPoints</Link> */}
       </LinkListContainer>
     </LinkContainer>
   );
