@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
-import RendererBox from "./RendererBox";
+import RendererBox from "../RendererBox";
 import * as THREE from "three";
-import { resizeOptimization } from "../utils/snippet";
+import { resizeOptimization } from "utils/snippet";
 import styled from "styled-components";
 
 const Container = styled.div`

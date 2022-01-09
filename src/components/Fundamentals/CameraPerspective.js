@@ -1,9 +1,9 @@
 import React, { useEffect, useRef } from "react";
-import RendererBox from "./RendererBox";
+import RendererBox from "../RendererBox";
 import * as THREE from "three";
 import GUI from "lil-gui";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
-import { resizeRendererToDisplaySize } from "../utils/snippet";
+import { resizeRendererToDisplaySize } from "utils/snippet";
 import styled from "styled-components";
 
 const SplitView = styled.div`
@@ -19,7 +19,7 @@ const SplitView = styled.div`
   }
 `;
 
-function CameraOrthographic() {
+function CameraPerspective() {
   const canvasRef = useRef(null);
   const cameraOne = useRef(null);
   const cameraTwo = useRef(null);
@@ -31,22 +31,11 @@ function CameraOrthographic() {
     const view1Elem = cameraOne.current;
     const view2Elem = cameraTwo.current;
 
-    const left = -1;
-    const right = 1;
-    const top = 1;
-    const bottom = -1;
+    const fov = 45;
+    const aspect = 2; // the canvas default
     const near = 5;
-    const far = 50;
-    const camera = new THREE.OrthographicCamera(
-      left,
-      right,
-      top,
-      bottom,
-      near,
-      far
-    );
-
-    camera.zoom = 0.2;
+    const far = 100;
+    const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
     camera.position.set(0, 10, 20);
 
     const cameraHelper = new THREE.CameraHelper(camera);
@@ -78,8 +67,8 @@ function CameraOrthographic() {
     }
 
     const gui = new GUI();
-    gui.add(camera, "zoom", 0.01, 1, 0.01).listen();
     const minMaxGUIHelper = new MinMaxGUIHelper(camera, "near", "far", 0.1);
+    gui.add(camera, "fov", 1, 180);
     gui.add(minMaxGUIHelper, "min", 0.1, 50, 0.1).name("near");
     gui.add(minMaxGUIHelper, "max", 0.1, 50, 0.1).name("far");
 
@@ -93,7 +82,7 @@ function CameraOrthographic() {
       0.1, // near
       500 // far
     );
-    camera2.position.set(16, 28, 40);
+    camera2.position.set(40, 10, 30);
     camera2.lookAt(0, 5, 0);
 
     const controls2 = new OrbitControls(camera2, view2Elem);
@@ -191,14 +180,15 @@ function CameraOrthographic() {
       {
         const aspect = setScissorForElement(view1Elem);
         // adjust the camera for this aspect
-        camera.left = -aspect;
-        camera.right = aspect;
+        camera.aspect = aspect;
         camera.updateProjectionMatrix();
         cameraHelper.update();
+
+        scene.background.set(0x000000);
         // don't draw the camera helper in the original view
         cameraHelper.visible = false;
+
         // render
-        scene.background.set(0x000000);
         renderer.render(scene, camera);
       }
 
@@ -239,4 +229,4 @@ function CameraOrthographic() {
   );
 }
 
-export default CameraOrthographic;
+export default CameraPerspective;

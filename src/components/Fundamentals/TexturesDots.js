@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import RendererBox from "./RendererBox";
+import RendererBox from "../RendererBox";
 import * as THREE from "three";
 
 function TexturesDots() {

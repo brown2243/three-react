@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
-import RendererBox from "./RendererBox";
+import RendererBox from "../RendererBox";
 import * as THREE from "three";
-import { resizeOptimization } from "../utils/snippet";
+import { resizeOptimization } from "utils/snippet";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 function Shadow() {
   const canvasRef = useRef(null);

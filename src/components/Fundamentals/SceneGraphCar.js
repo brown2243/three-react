@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import * as THREE from "three";
-import RendererBox from "./RendererBox";
+import RendererBox from "../RendererBox";
 
 function SceneGraphCar() {
   const canvasRef = useRef(null);

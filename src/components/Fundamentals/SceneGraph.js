@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import GUI from "lil-gui";
 import * as THREE from "three";
-import RendererBox from "./RendererBox";
-import { resizeOptimization } from "../utils/snippet";
+import RendererBox from "../RendererBox";
+import { resizeOptimization } from "utils/snippet";
 
 function SceneGraph() {
   const canvasRef = useRef(null);

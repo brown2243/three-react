@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
-import RendererBox from "./RendererBox";
+import RendererBox from "../RendererBox";
 import * as THREE from "three";
-import { resizeRendererToDisplaySize } from "../utils/snippet";
+import { resizeRendererToDisplaySize } from "utils/snippet";
 
 function CameraOrthographic2() {
   const canvasRef = useRef(null);

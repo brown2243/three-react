@@ -1,9 +1,9 @@
 import React, { useEffect, useRef } from "react";
-import RendererBox from "./RendererBox";
+import RendererBox from "../RendererBox";
 import * as THREE from "three";
 import GUI from "lil-gui";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
-import { resizeOptimization } from "../utils/snippet";
+import { resizeOptimization } from "utils/snippet";
 
 function CameraZfighting() {
   const canvasRef = useRef(null);
