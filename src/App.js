@@ -20,7 +20,8 @@ import Fog from "components/Fundamentals/Fog";
 import Rendertargets from "components/Fundamentals/Rendertargets";
 import BufferGeometry from "components/Fundamentals/BufferGeometry";
 //
-import ParticialPoints from "components/Tips/ParticialPoints";
+import ParticialPoints from "components/Examples/ParticialPoints";
+import RedenringOnDemand from "components/Tips/RedenringOnDemand";
 
 const AppContainer = styled.section`
   width: 100vw;
@@ -39,6 +40,7 @@ const LinkListContainer = styled.div`
   font-size: 30px;
   & > h1 {
     font-size: 52px;
+    margin-bottom: 12px;
   }
 `;
 
@@ -71,6 +73,10 @@ function App() {
           <Route path="/Rendertargets" element={<Rendertargets />} />
           <Route path="/BufferGeometry" element={<BufferGeometry />} />
           {/*  */}
+          <Route
+            path="/tip/RedenringOnDemand"
+            element={<RedenringOnDemand />}
+          />
 
           {/*  */}
 
@@ -113,7 +119,7 @@ function LinkList() {
       </LinkListContainer>
       <LinkListContainer>
         <h1>Tips</h1>
-        {/* <Link to="/primitives">primitives</Link> */}
+        <Link to="/tip/RedenringOnDemand">RedenringOnDemand</Link>
       </LinkListContainer>
       <LinkListContainer>
         <h1>Examples</h1>

@@ -656,3 +656,17 @@ BufferGeometry는 Three.js 내의 모든 geometry를 나타냅니다(r125에서�
 각 BufferAttribute는 위치(positions), 법선(normals), 색(colors), uv 데이터의 배열이고, 이들을 모으면 각 꼭지점에 대한 평행 배열 형식의 데이터가 됩니다.
 
 모서리의 꼭지점을 공유하는 듯해도 사실 그렇지 않기 때문이죠. 필요한 꼭지점을 전부 생성한 후, 꼭지점 데이터를 평행 배열로 변환해 BufferAttribute를 만들고, 이를 BufferGeometry에 추가해야 합니다.
+
+## [rendering-on-demand](https://threejs.org/manual/#ko/rendering-on-demand)
+
+대부분의 개발자에게 이 주제는 너무 뻔할 수 있지만, 필요한 누군가를 위해 글을 써보려 합니다. **대부분의 Three.js 예제는 렌더링 과정을 계속 반복합니다. 그러니까 아래와 같이 재귀적으로 requestAnimationFrame 함수를 사용한다는 거죠.**
+
+**애니메이션이 없는 경우라면 처음 한 번만 렌더링하고, 그 후에 변화가 있을 때만 렌더링하는 것이 가장 정확한 해결책일 겁니다.** 여기서 변화란 텍스처나 모델의 로딩이 끝났을 때, 외부에서 데이터를 받았을 때, 사용자가 카메라를 조정하거나, 설정을 바꾸거나, 인풋 값이 변경된 경우 등 다양하겠죠.
+
+OrbitControls에는 관성(inertia) 옵션이 있습니다. enableDamping 속성을 true 설정하면 동작이 좀 더 부드러워지죠.
+
+또한 OrbitControls가 부드러운 동작을 구현할 때 변경된 카메라 값을 계속 넘겨주도록 render 함수 안에서 controls.update 메서드를 호출해야 합니다. 하지만 이렇게 하면 change 이벤트가 발생했을 때 render 함수가 무한정 호출될 겁니다. controls가 change 이벤트를 보내면 render 함수가 호출되고, render 함수는 controls.update 메서드를 호출해 다시 change 이벤트를 보내게 만들 테니까요.
+
+requestAnimationFrame이 직접 render 함수를 호출하게 하면 이 문제를 해결 할 수 있습니다. 너무 많은 프레임을 막기 위해 변수 하나를 두어 요청한 프레임이 없을 경우에만 프레임을 요청하도록 하면 되겠네요.
+
+**이 글이 불필요한 렌더링 제거에 대한 개념을 조금이라도 잡아주었길 바랍니다. 보통 Three.js를 사용할 때는 이렇게 렌더링 루프를 제어할 일이 없습니다. 대게 게임 또는 애니메이션이 들어간 3D 컨텐츠이기 때문이죠. 하지만 지도나, 3D 에디터, 3D 그래프, 상품 목록 등에서는 이런 기법이 필요할 수도 있습니다.**
